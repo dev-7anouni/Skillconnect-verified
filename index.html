@@ -39,6 +39,17 @@ button{padding:12px 14px;border-radius:12px;border:none;cursor:pointer;font-weig
 footer{text-align:center;margin-top:22px;padding:14px;color:var(--muted);font-size:0.92rem}
 .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);justify-content:center;align-items:center;z-index:1000;}
 .modal-content{background:#fff;padding:30px;border-radius:14px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,0.2);}
+.btn.instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 6px 12px rgba(220,39,67,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn.instagram:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(220,39,67,0.4);
+}
 </style>
 </head>
 <body>
@@ -86,7 +97,7 @@ footer{text-align:center;margin-top:22px;padding:14px;color:var(--muted);font-si
       </div>
 
       <p id="error" class="alert"></p>
-      <p style="text-align:center;margin-top:10px;color:var(--brand);font-weight:600">website owners : Ahmed Saidi × Rayen Boukari × sajed marwani</p>
+      <p style="text-align:center;margin-top:10px;color:var(--brand);font-weight:600">website owners : Ahmed Saidi × Rayen Boukari × Sajed Marwani</p>
     </div>
 </div>
 
@@ -101,8 +112,8 @@ footer{text-align:center;margin-top:22px;padding:14px;color:var(--muted);font-si
     </button>
   </div>
   <div class="modal-content" id="registerStep2" style="display:none;">
-    <a href="https://www.instagram.com/ahhmed__x" target="_blank" class="btn" style="font-size:16px;">
-      <i class="fab fa-instagram"></i> Instagram
+    <a href="https://www.instagram.com/ahhmed__x" target="_blank" class="btn instagram" style="font-size:16px;">
+      <i class="fab fa-instagram"></i> @ahhmed__x
     </a><br>
     <button id="closeModal2" class="btn secondary" style="margin-top:10px;">
       <i class="fa fa-times"></i> Fermer
