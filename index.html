@@ -1,284 +1,417 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SkillConnect Verified</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SkillConnect Verified — Dark Neon</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#eef7f6;
-  --card:#ffffff;
-  --muted:#6b7a7a;
-  --brand:#00796b;
-  --brand-600:#00695c;
-  --accent:#00bfa5;
-  --danger:#d32f2f;
-  --glass: rgba(255,255,255,0.6);
-  --radius:14px;
+  --bg-1: #050507;
+  --bg-2: #0b0810;
+  --neon-1: #7df9ff; /* cyan */
+  --neon-2: #9b59ff; /* violet */
+  --accent: #00ffa3; /* green neon */
+  --muted: #9aa3a3;
+  --card: rgba(255,255,255,0.03);
+  --glass: rgba(255,255,255,0.04);
+  --radius: 14px;
+  --glass-border: rgba(255,255,255,0.06);
 }
-*{box-sizing:border-box;margin:0;padding:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
-html,body{height:100%;background:linear-gradient(180deg, #f5fbfa 0%, var(--bg) 100%);color:#21383a;}
-.container{max-width:980px;margin:40px auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.98));border-radius:var(--radius);box-shadow:0 10px 30px rgba(12,40,36,0.08);border:1px solid rgba(3,54,48,0.04);}
-header{display:flex;align-items:center;gap:16px;justify-content:center;margin-bottom:18px}
-.logo{display:flex;align-items:center;gap:12px}
-.logo .dot{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
-h1{font-size:20px;color:var(--brand);}
-h2{color:var(--brand);text-align:center;margin-bottom:14px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:680px){.form-row{grid-template-columns:1fr}}
-input,select,button{font-size:15px}
-input,select{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(2,40,36,0.06);background:linear-gradient(180deg, #fff, #fbfffe);transition:box-shadow .18s,transform .12s;border-radius:12px}
-input:focus,select:focus{outline:none;box-shadow:0 8px 18px rgba(0,121,107,0.08);transform:translateY(-1px);border-color:var(--brand-600)}
-label{display:block;margin-top:8px;margin-bottom:6px;color:var(--muted);font-weight:600}
-button{padding:12px 14px;border-radius:12px;border:none;cursor:pointer;font-weight:600}
-.btn{background:var(--brand);color:#fff;box-shadow:0 8px 18px rgba(0,121,107,0.12)}
-.btn.secondary{background:transparent;color:var(--brand);border:1px solid rgba(0,121,107,0.12)}
-.btn.warn{background:var(--danger)}
-.alert{color:var(--danger);font-weight:700;text-align:center;margin-top:8px}
-.section{display:none;margin-top:18px}
-.card{border-radius:12px;padding:16px;margin:12px 0;background:linear-gradient(180deg,#ffffff,#f7fffd);border:1px solid rgba(2,40,36,0.04);box-shadow:0 6px 18px rgba(14,50,48,0.06);transition:transform .18s,box-shadow .18s}
-.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(10,50,45,0.09)}
-.card strong{display:block;font-size:1.05rem;margin-bottom:6px}
-.card-buttons{display:flex;gap:10px;margin-top:12px}
-.card-buttons button{flex:1;padding:10px;border-radius:10px;background:linear-gradient(180deg,var(--brand),var(--brand-600));color:#fff;border:none;display:flex;align-items:center;justify-content:center;gap:8px}
-.card-buttons button.secondary{background:transparent;color:var(--brand);border:1px solid rgba(0,121,107,0.08)}
-.info-box{padding:12px;border-radius:10px;margin-bottom:12px;background:linear-gradient(90deg, rgba(0,191,165,0.06), rgba(0,121,107,0.04));font-weight:600;color:var(--brand-600)}
-footer{text-align:center;margin-top:22px;padding:14px;color:var(--muted);font-size:0.92rem}
-.price{font-weight:800;color:#083433}
-.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(0,191,165,0.12);color:var(--brand-600);font-weight:700;font-size:12px}
-.small{font-size:13px;color:var(--muted)}
-.top-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:18px}
-.icon-left{margin-right:8px}
-/* subtle glassy backdrop on mobile for the main wrapper */
-@media(max-width:420px){.container{margin:18px;padding:18px}}
+
+/* Reset + basics */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:radial-gradient(1200px 600px at 10% 10%, rgba(155,89,255,0.06), transparent),
+           radial-gradient(800px 400px at 90% 90%, rgba(125,249,255,0.04), transparent),
+           linear-gradient(180deg,var(--bg-1),var(--bg-2));
+         color:#d7eef0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;}
+a{color:inherit;text-decoration:none}
+
+/* animated moving grid background */
+.bg-grid{
+  position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.55;
+  background-image:
+    linear-gradient(transparent 95%, rgba(255,255,255,0.02) 95%),
+    linear-gradient(90deg, transparent 95%, rgba(255,255,255,0.02) 95%);
+  background-size: 60px 60px, 60px 60px;
+  mix-blend-mode:overlay;
+  animation: drift 24s linear infinite;
+  filter: blur(6px) contrast(0.9) saturate(1.8);
+}
+@keyframes drift{
+  from{transform:translate3d(0,0,0) rotate(0deg)}
+  to{transform:translate3d(-120px,60px,0) rotate(1deg)}
+}
+
+/* glass container */
+.container{
+  position:relative; z-index:2;
+  max-width:1100px; margin:40px auto; padding:28px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:var(--radius); border:1px solid var(--glass-border);
+  box-shadow:0 10px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  overflow:hidden;
+}
+
+/* Header */
+.header{
+  display:flex; align-items:center; gap:18px; justify-content:space-between; margin-bottom:18px;
+}
+.brand{
+  display:flex; align-items:center; gap:12px;
+}
+.logo{
+  width:56px; height:56px; border-radius:12px;
+  background:linear-gradient(135deg,var(--neon-2),var(--neon-1));
+  box-shadow: 0 6px 30px rgba(155,89,255,0.18), 0 0 26px rgba(125,249,255,0.06), 0 0 6px rgba(255,255,255,0.03);
+  display:flex; align-items:center; justify-content:center; font-family:Orbitron,monospace; font-weight:700; color:#031112;
+  transform:translateY(0); animation: logoPulse 2.8s ease-in-out infinite;
+}
+@keyframes logoPulse{
+  0%{transform:scale(1); box-shadow:0 6px 30px rgba(155,89,255,0.18)}
+  50%{transform:scale(1.045); box-shadow:0 18px 60px rgba(155,89,255,0.28)}
+  100%{transform:scale(1); box-shadow:0 6px 30px rgba(155,89,255,0.18)}
+}
+h1{font-family:Orbitron,monospace;font-size:20px; color:var(--neon-1); text-shadow:0 2px 10px rgba(125,249,255,0.06);}
+h1 small{display:block;font-family:Inter; font-weight:600; color:var(--muted); font-size:12px; margin-top:2px}
+
+/* layout */
+.grid{
+  display:grid; grid-template-columns: 1fr 380px; gap:20px;
+}
+@media(max-width:980px){ .grid{grid-template-columns:1fr} }
+
+/* main panel */
+.panel{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:12px; padding:18px; border:1px solid rgba(255,255,255,0.02);
+  box-shadow:0 6px 24px rgba(0,0,0,0.6);
+}
+
+/* neon form */
+.form-row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+@media(max-width:640px){ .form-row{grid-template-columns:1fr} }
+
+.input, select{
+  width:100%; padding:12px 14px; border-radius:10px; background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.04); color:#e9fbfb; font-weight:600;
+  box-shadow: 0 6px 18px rgba(1,10,12,0.6), 0 0 8px rgba(0,0,0,0.5) inset;
+  transition:transform .12s ease, box-shadow .12s ease, border-color .12s;
+}
+.input:focus, select:focus{
+  outline:none; transform:translateY(-4px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.7), 0 0 22px rgba(125,89,255,0.08), 0 0 10px rgba(0,255,163,0.04);
+  border-color: rgba(125,89,255,0.35);
+}
+
+/* CTA buttons */
+.btn{
+  display:inline-flex; align-items:center; gap:10px; padding:12px 14px; border-radius:10px;
+  font-weight:700; letter-spacing:0.6px; cursor:pointer; border:none;
+  background:linear-gradient(90deg, rgba(155,89,255,0.14), rgba(125,249,255,0.06));
+  color:var(--neon-1); text-shadow:0 2px 8px rgba(0,0,0,0.6); box-shadow: 0 10px 30px rgba(125,89,255,0.06);
+  transition:transform .12s ease, box-shadow .18s ease, filter .12s ease;
+}
+.btn.primary{
+  background:linear-gradient(90deg,var(--neon-1),var(--neon-2));
+  color:#031112; text-shadow:none; box-shadow:0 10px 40px rgba(125,89,255,0.18), 0 0 30px rgba(125,249,255,0.12);
+}
+.btn:hover{ transform:translateY(-6px) scale(1.01); filter:brightness(1.06) }
+.btn:active{ transform:translateY(-2px) scale(.995) }
+
+/* glowing outline on hover */
+.btn-glow{ position:relative; overflow:visible }
+.btn-glow::after{
+  content:""; position:absolute; left:-6px; right:-6px; top:-6px; bottom:-6px; z-index:-1;
+  border-radius:12px; opacity:0; transition:opacity .18s ease; background:linear-gradient(90deg,var(--neon-1),var(--neon-2));
+  filter:blur(14px);
+}
+.btn-glow:hover::after{ opacity:0.75 }
+
+/* cards list (clients) */
+.card{
+  padding:14px; border-radius:12px; margin:10px 0; background:linear-gradient(180deg, rgba(0,0,0,0.36), rgba(255,255,255,0.02));
+  border:1px solid rgba(255,255,255,0.03); box-shadow:0 8px 30px rgba(0,0,0,0.65);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.card:hover{ transform:translateY(-8px); box-shadow:0 22px 64px rgba(0,0,0,0.7) }
+.card strong{color:var(--neon-2); font-family:Orbitron; font-size:1.05rem}
+.card .meta{color:var(--muted); font-size:13px; margin-top:6px}
+
+/* typing title effect */
+.typing{
+  display:inline-block; font-family:Orbitron, monospace; color:var(--accent); font-weight:700; font-size:18px;
+  white-space:nowrap; overflow:hidden; border-right:2px solid rgba(0,255,163,0.8);
+  animation: typing 2.8s steps(28,end) 1, blink .8s step-end infinite;
+  max-width:0;
+}
+[data-typed="true"] .typing{ max-width:520px; /* will reveal */ }
+
+/* typing keyframes */
+@keyframes typing{
+  from{ max-width:0 }
+  to{ max-width:520px }
+}
+@keyframes blink{ 50%{ border-color:transparent } }
+
+/* entry animations (fade+slide) */
+.fade-up{ opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; }
+.fade-up.in-view{ opacity:1; transform:translateY(0) }
+
+.fade-left{ opacity:0; transform:translateX(18px); transition:opacity .6s ease, transform .6s ease; }
+.fade-left.in-view{ opacity:1; transform:translateX(0) }
+
+/* small utils */
+.row{display:flex; gap:12px; align-items:center}
+.col{display:flex; flex-direction:column; gap:8px}
+.info{color:var(--muted); font-size:13px}
+
+/* footer */
+.footer{ margin-top:18px; text-align:center; color:var(--muted); font-size:13px; padding-top:8px; border-top:1px dashed rgba(255,255,255,0.02) }
+
+/* neon headings */
+.section-title{font-family:Orbitron,monospace;color:var(--neon-1); font-size:16px; margin-bottom:8px; text-shadow: 0 4px 24px rgba(125,89,255,0.06)}
+
+/* tiny responsive */
+@media(max-width:640px){
+  .header{flex-direction:column;align-items:flex-start; gap:8px}
+  .logo{width:48px;height:48px}
+  .grid{gap:14px}
+  .container{margin:18px;padding:18px}
+}
 </style>
 </head>
 <body>
+  <div class="bg-grid" aria-hidden="true"></div>
 
-<div class="container" id="loginDiv">
-    <header>
-      <div class="logo">
-        <div class="dot">SC</div>
+  <div class="container" role="main">
+    <div class="header">
+      <div class="brand">
+        <div class="logo">SC</div>
+        <div>
+          <h1>SkillConnect <small>— Verified</small></h1>
+          <div class="info">Plateforme de mise en relation — style Dark Gaming</div>
+        </div>
       </div>
-      <h1>SkillConnect <span class="small">— Verified</span></h1>
-    </header>
 
-    <div style="max-width:760px;margin:0 auto;">
-    <div class="form-row">
-      <div>
-        <label>Username</label>
-        <input type="text" id="username" placeholder="Username">
-      </div>
-      <div>
-        <label>Password</label>
-        <input type="password" id="password" placeholder="Password">
+      <div class="row" style="gap:10px">
+        <button class="btn btn-glow primary" id="demoLoginBtn"><i class="fa-solid fa-user-shield" style="font-family: 'Font Awesome 6 Free'"></i> Connexion demo</button>
       </div>
     </div>
 
-    <div class="form-row" style="margin-top:10px">
-      <div>
-        <label>Tu es :</label>
-        <select id="role">
-            <option value="jobSeeker">Demandeur d’emploi</option>
-            <option value="freelance">Freelance</option>
-        </select>
+    <div class="grid">
+      <!-- left main -->
+      <div class="panel fade-up" id="mainPanel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div>
+            <div class="section-title">Test avancé • Vérification</div>
+            <div style="font-size:13px;color:var(--muted)">⚠️ L'utilisation d'IA pour répondre au test est interdite.</div>
+          </div>
+          <div class="info">Tarif apprentissage: <strong style="color:var(--neon-2)">20 Dinar</strong></div>
+        </div>
+
+        <div class="col">
+          <div class="form-row">
+            <div>
+              <label class="info">Nom d'utilisateur</label>
+              <input class="input" id="username" placeholder="skillconnect-test">
+            </div>
+            <div>
+              <label class="info">Mot de passe</label>
+              <input class="input" id="password" placeholder="skillconnect-test" type="password">
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:12px">
+            <div style="flex:1">
+              <label class="info">Tu es :</label>
+              <select class="input" id="role">
+                <option value="jobSeeker">Demandeur d’emploi</option>
+                <option value="freelance">Freelance</option>
+              </select>
+            </div>
+            <div style="flex:1">
+              <label class="info">Choisis ton skill :</label>
+              <select class="input" id="skill">
+                <option value="web">Web Development</option>
+                <option value="design">Design</option>
+                <option value="marketing">Marketing</option>
+                <option value="data">Data Analysis</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top:14px" id="testSection">
+            <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
+              <div class="typingWrap" id="typingWrap"><span class="typing">Bienvenue — fais le test pour être vérifié</span></div>
+              <div class="info small" style="color:var(--muted)">Temps estimé: <strong>~2 min</strong></div>
+            </div>
+
+            <div style="margin-top:14px">
+              <label class="info">1. Combien font 5 + 7 ?</label>
+              <input class="input" id="q1" type="number">
+              <label class="info" style="margin-top:10px">2. Résoudre : 12 * 3 - 4 = ?</label>
+              <input class="input" id="q2" type="number">
+              <label class="info" style="margin-top:10px">3. Quelle est la capitale de la Tunisie ?</label>
+              <input class="input" id="q3" type="text">
+              <label class="info" style="margin-top:10px">4. En JavaScript : typeof NaN = ?</label>
+              <input class="input" id="q4" type="text">
+              <label class="info" style="margin-top:10px">5. Résoudre : (8 + 2) * (5 - 3) / 2 = ?</label>
+              <input class="input" id="q5" type="number">
+            </div>
+
+            <div style="display:flex;gap:10px;margin-top:14px;justify-content:flex-end">
+              <button id="submitTestBtn" class="btn btn-glow primary"><i class="fa-solid fa-check"></i> Soumettre</button>
+              <button id="learnBtn" class="btn btn-glow" style="background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color:var(--neon-2)">Voir solutions</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <label>Choisis ton skill :</label>
-        <select id="skill">
-            <option value="web">Web Development</option>
-            <option value="design">Design</option>
-            <option value="marketing">Marketing</option>
-            <option value="data">Data Analysis</option>
-        </select>
-      </div>
+
+      <!-- right sidebar -->
+      <aside class="panel fade-left" id="sidePanel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div class="section-title">Tableau • Rapide</div>
+          <div class="info">Utilisateur <span id="displayUser" style="color:var(--neon-2)">—</span></div>
+        </div>
+
+        <div id="userInfo" style="margin-bottom:12px">
+          <div class="info">Rôle: <strong id="displayRole" style="color:var(--neon-1)">—</strong></div>
+          <div class="info" style="margin-top:6px">Skill: <strong id="displaySkill" style="color:var(--neon-2)">—</strong></div>
+        </div>
+
+        <div style="margin-top:8px">
+          <div class="section-title">Clients</div>
+          <div id="clientsDiv" aria-live="polite"></div>
+
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <button id="showClientsBtn" class="btn btn-glow">Voir clients</button>
+            <button id="hideAllBtn" class="btn btn-glow" style="background:transparent;color:var(--neon-1);border:1px solid rgba(125,89,255,0.06)">Hide</button>
+            <button id="subscribeBtn" class="btn btn-glow primary" style="margin-left:auto">Premium <span style="margin-left:6px" class="info">99 Dinar</span></button>
+          </div>
+        </div>
+
+        <div class="footer" style="margin-top:16px">© SkillConnect 2025 — Design Neon Dark</div>
+      </aside>
     </div>
+  </div>
 
-    <div style="display:flex;gap:10px;margin-top:14px;justify-content:center;align-items:center">
-      <button id="loginBtn" class="btn"><i class="fa fa-sign-in-alt icon-left"></i> Se connecter</button>
-    </div>
+  <!-- icons: using a tiny bundled FA fallback if not loaded (recommended to include full FA in production) -->
+  <script>
+  // Minimal polyfill for typing reveal state
+  document.addEventListener('DOMContentLoaded', () => {
+    // Typing effect: add data-typed after small delay so CSS animation triggers
+    setTimeout(()=> {
+      document.getElementById('typingWrap').closest('#mainPanel').setAttribute('data-typed','true');
+      document.getElementById('typingWrap').classList.add('in-view');
+    }, 350);
 
-    <p id="error" class="alert"></p>
-    <p style="text-align:center;margin-top:10px;color:var(--brand);font-weight:600">website owners : Ahmed Saidi × Rayen Boukari</p>
-    </div>
-</div>
+    // Fade in on scroll using IntersectionObserver
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('in-view');
+      });
+    }, {threshold: 0.12});
+    document.querySelectorAll('.fade-up, .fade-left').forEach(el => obs.observe(el));
 
-<div class="container section" id="testDiv">
-    <h2>Test avancé pour ton skill</h2>
-    <p class="alert">⚠️ Attention : L'utilisation d'IA pour répondre au test est interdite ! ⚠️</p>
-    <div style="max-width:760px;margin:0 auto">
-        <label>1. Combien font 5 + 7 ?</label>
-        <input type="number" id="q1"><br>
-        <label>2. Résoudre : 12 * 3 - 4 = ?</label>
-        <input type="number" id="q2"><br>
-        <label>3. Quelle est la capitale de la Tunisie ?</label>
-        <input type="text" id="q3"><br>
-        <label>4. En JavaScript : typeof NaN = ?</label>
-        <input type="text" id="q4"><br>
-        <label>5. Résoudre : (8 + 2) * (5 - 3) / 2 = ?</label>
-        <input type="number" id="q5"><br>
-    </div>
-    <div style="text-align:center;margin-top:12px">
-      <button id="submitTestBtn" class="btn"><i class="fa fa-check icon-left"></i> Soumettre le Test</button>
-    </div>
-</div>
-
-<div class="container section" id="learnDiv">
-    <h2>Aller à apprendre (20 Dinar aujourd'hui)</h2>
-    <p>Voici les réponses pour t'aider à apprendre :</p>
-    <ul>
-        <li>1. 5 + 7 = <strong>12</strong></li>
-        <li>2. 12 * 3 - 4 = <strong>32</strong></li>
-        <li>3. Capitale de la Tunisie = <strong>Tunis</strong></li>
-        <li>4. typeof NaN en JavaScript = <strong>number</strong></li>
-        <li>5. (8 + 2) * (5 - 3) / 2 = <strong>10</strong></li>
-    </ul>
-    <div style="text-align:center;margin-top:12px">
-      <button id="retryTestBtn" class="btn secondary"><i class="fa fa-redo icon-left"></i> Repasser le test</button>
-    </div>
-</div>
-
-<div class="container section" id="dashDiv">
-    <h2>Bienvenue !</h2>
-    <div class="info-box">Utilisateur: <span id="displayUser"></span></div>
-    <div class="info-box">Rôle: <span id="displayRole"></span></div>
-    <div class="info-box">Skill: <span id="displaySkill"></span></div>
-    <div class="top-actions">
-      <button id="showClientsBtn" class="btn"><i class="fa fa-users icon-left"></i> Voir Clients</button>
-      <button id="hideAllBtn" class="btn secondary"><i class="fa fa-eye-slash icon-left"></i> Hide Tout</button>
-      <button id="subscribeBtn" class="btn"><i class="fa fa-star icon-left"></i> S’abonner Premium <span class="badge">99 Dinar</span></button>
-      <button id="backFromDashBtn" class="btn secondary"><i class="fa fa-arrow-left icon-left"></i> Retour</button>
-    </div>
-    <div id="clientsDiv"></div>
-</div>
-
-<footer> © SkillConnect 2025. All rights reserved. </footer>
-
-<script>
-// --- original JS kept mostly intact but without changes to logic ---
-document.addEventListener("DOMContentLoaded", function(){
-
-let userRole = '';
-let userName = '';
-let userSkill = '';
-
-const allClients = [
-  {name:"Mohamed Ben Ali",price:50,badges:["Badge Web Expert"],projects:["Site e-commerce Tunisien"]},
-  {name:"Fatma Trabelsi",price:70,badges:["Badge Designer Pro"],projects:["App mobile Restaurants"]},
-  {name:"Sami Jaziri",price:60,badges:["Badge Marketing Guru"],projects:["Campagne marketing"]},
-  {name:"Amira Hentati",price:80,badges:["Badge Data Master"],projects:["Dashboard Data"]}
-];
-
-document.getElementById("loginBtn").addEventListener("click", function(){
-    const user=document.getElementById('username').value.trim();
-    const pass=document.getElementById('password').value.trim();
-    const role=document.getElementById('role').value;
-    const skill=document.getElementById('skill').value;
-    const error=document.getElementById('error');
-
-    if(user==="skillconnect-test" && pass==="skillconnect-test"){
-        userRole = role;
-        userName = "super-user";
-        userSkill = skill;
-        document.getElementById('displayUser').innerText=userName;
-        document.getElementById('displayRole').innerText=role==='jobSeeker'?'Demandeur d’emploi':'Freelance';
-        document.getElementById('displaySkill').innerText=skill;
-
-        document.getElementById('loginDiv').style.display='none';
-        if(role==='freelance'){
-            document.getElementById('testDiv').style.display='block';
-        } else {
-            document.getElementById('dashDiv').style.display='block';
-        }
-    } else { 
-        error.innerText='Identifiants incorrects!'; 
-    }
-});
-
-document.getElementById('submitTestBtn').addEventListener('click', ()=>{
-    const a1=document.getElementById('q1').value;
-    const a2=document.getElementById('q2').value;
-    const a3=document.getElementById('q3').value.trim();
-    const a4=document.getElementById('q4').value.trim();
-    const a5=document.getElementById('q5').value;
-
-    if(!a1||!a2||!a3||!a4||!a5){
-    alert("⚠️ Attention : Tous les champs doivent être remplis et l'utilisation d'IA est interdite !");
-    return;
-}
-
-if(Number(a1)===12 && Number(a2)===32 && a3.toLowerCase()==='tunis' && a4.toLowerCase()==='number' && Number(a5)===10){
-    document.getElementById('testDiv').style.display='none';
-    document.getElementById('dashDiv').style.display='block';
-} else {
-    document.getElementById('testDiv').style.display='none';
-    document.getElementById('learnDiv').style.display='block';
-}
-});
-
-document.getElementById('retryTestBtn').addEventListener('click', ()=>{
-    document.getElementById('learnDiv').style.display='none';
-    document.getElementById('testDiv').style.display='block';
-});
-
-function createClientCard(client){
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.innerHTML = `<strong>${client.name}</strong> - Prix: <span class="price">${client.price} Dinar</span>`;
-
-    const buttonsContainer = document.createElement('div');
-    buttonsContainer.className = 'card-buttons';
-
-    if(userRole==='jobSeeker'){
-        const badgesBtn=document.createElement('button');
-        badgesBtn.type='button';
-        badgesBtn.className='secondary';
-        badgesBtn.innerHTML='<i class="fa fa-award"></i> Voir Badges';
-        badgesBtn.onclick=()=>alert(`Badges de ${client.name}: ${client.badges.join(', ')}`);
-        buttonsContainer.appendChild(badgesBtn);
-
-        const projectsBtn=document.createElement('button');
-        projectsBtn.type='button';
-        projectsBtn.className='secondary';
-        projectsBtn.innerHTML='<i class="fa fa-folder-open"></i> Voir Projets';
-        projectsBtn.onclick=()=>alert(`Projets de ${client.name}: ${client.projects.join(', ')}`);
-        buttonsContainer.appendChild(projectsBtn);
-    }
-
-    const chooseBtn=document.createElement('button');
-    chooseBtn.type='button';
-    chooseBtn.innerHTML='<i class="fa fa-hand-pointer"></i> Choisir';
-    chooseBtn.onclick=()=>alert(`Vous avez choisi ${client.name}. Attendre réponse du client. OK`);
-    buttonsContainer.appendChild(chooseBtn);
-
-    div.appendChild(buttonsContainer);
-    return div;
-}
-
-document.getElementById('showClientsBtn').addEventListener('click', ()=>{
-    const container=document.getElementById('clientsDiv');
-    container.innerHTML='';
-    allClients.forEach(client=>{
-        container.appendChild(createClientCard(client));
+    // Demo login button to prefill and show dash
+    const demoBtn = document.getElementById('demoLoginBtn');
+    demoBtn.addEventListener('click', ()=> {
+      document.getElementById('username').value = 'skillconnect-test';
+      document.getElementById('password').value = 'skillconnect-test';
+      document.getElementById('role').value = 'freelance';
+      document.getElementById('skill').value = 'web';
+      demoBtn.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}],
+                       {duration:420, iterations:1});
     });
-});
 
-document.getElementById('hideAllBtn').addEventListener('click', ()=>{
-    document.getElementById('clientsDiv').innerHTML='';
-});
+    // Core logic (kept close to original)
+    let userRole = '';
+    let userName = '';
+    let userSkill = '';
+    const allClients = [
+      {name:"Mohamed Ben Ali",price:50,badges:["Badge Web Expert"],projects:["Site e-commerce Tunisien"]},
+      {name:"Fatma Trabelsi",price:70,badges:["Badge Designer Pro"],projects:["App mobile Restaurants"]},
+      {name:"Sami Jaziri",price:60,badges:["Badge Marketing Guru"],projects:["Campagne marketing"]},
+      {name:"Amira Hentati",price:80,badges:["Badge Data Master"],projects:["Dashboard Data"]}
+    ];
 
-document.getElementById('subscribeBtn').addEventListener('click', ()=>{
-    alert("Vérifiez l'e-mail reçu pour terminer le processus de paiement!!");
-});
+    function showClients(){
+      const container = document.getElementById('clientsDiv');
+      container.innerHTML = '';
+      allClients.forEach(c=>{
+        const d = document.createElement('div');
+        d.className = 'card';
+        d.innerHTML = `<strong>${c.name}</strong><div class="meta">Prix: <span style="color:var(--neon-2)">${c.price} Dinar</span></div>
+                       <div style="margin-top:8px;display:flex;gap:8px">
+                         <button class="btn btn-glow" style="padding:8px 10px" onclick="alert('Badges: ${c.badges.join(', ')}')">Badges</button>
+                         <button class="btn btn-glow" style="padding:8px 10px" onclick="alert('Projets: ${c.projects.join(', ')}')">Projets</button>
+                         <button class="btn btn-glow primary" style="padding:8px 10px;margin-left:auto" onclick="alert('Vous avez choisi ${c.name} — attendre réponse')">Choisir</button>
+                       </div>`;
+        container.appendChild(d);
+      });
+    }
 
-document.getElementById('backFromDashBtn').addEventListener('click', ()=>{
-    document.getElementById('dashDiv').style.display='none';
-    document.getElementById('loginDiv').style.display='block';
-});
+    document.getElementById('showClientsBtn').addEventListener('click', showClients);
+    document.getElementById('hideAllBtn').addEventListener('click', ()=>{ document.getElementById('clientsDiv').innerHTML=''; });
 
-});
-</script>
+    // Submit test logic
+    document.getElementById('submitTestBtn').addEventListener('click', ()=>{
+      const u = document.getElementById('username').value.trim();
+      const p = document.getElementById('password').value.trim();
+      const role = document.getElementById('role').value;
+      const skill = document.getElementById('skill').value;
+      if(!u||!p){ alert('Remplis ton identifiant et mot de passe.'); return; }
+
+      // quick validation using the original credentials
+      if(u === 'skillconnect-test' && p === 'skillconnect-test'){
+        userRole = role; userName = 'super-user'; userSkill = skill;
+        document.getElementById('displayUser').innerText = userName;
+        document.getElementById('displayRole').innerText = (role==='jobSeeker'?'Demandeur d’emploi':'Freelance');
+        document.getElementById('displaySkill').innerText = skill;
+        // open test area (simulate)
+        const a1 = Number(document.getElementById('q1').value);
+        const a2 = Number(document.getElementById('q2').value);
+        const a3 = (document.getElementById('q3').value||'').trim().toLowerCase();
+        const a4 = (document.getElementById('q4').value||'').trim().toLowerCase();
+        const a5 = Number(document.getElementById('q5').value);
+
+        if(!a1||!a2||!a3||!a4||!a5){ // missing fields
+          // show dashboard but also prompt to fill test
+          alert('Tous les champs du test doivent être remplis. Si tu veux apprendre, clique "Voir solutions".');
+          return;
+        }
+
+        if(a1===12 && a2===32 && a3==='tunis' && a4==='number' && a5===10){
+          alert('Test validé ✅ — Bienvenue sur ton tableau.');
+          // reveal side info
+          document.getElementById('displayUser').innerText = userName;
+          // show clients automatically
+          showClients();
+        } else {
+          // show learning panel (simple modal-like)
+          showSolutions();
+        }
+      } else {
+        alert('Identifiants incorrects ! Utilise demo login ou skillconnect-test / skillconnect-test');
+      }
+    });
+
+    // show solutions
+    function showSolutions(){
+      const sol = `Réponses :\n1) 12\n2) 32\n3) Tunis\n4) number\n5) 10`;
+      alert(sol + '\n\nTu peux repasser le test après apprentissage.');
+    }
+    document.getElementById('learnBtn').addEventListener('click', showSolutions);
+
+    // small accessibility: allow Enter to submit on password
+    document.getElementById('password').addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter') document.getElementById('submitTestBtn').click();
+    });
+
+  });
+  </script>
+  <!-- FontAwesome CDN (recommended for proper icons) -->
+  <script src="https://kit.fontawesome.com/a2d9b4f3b0.js" crossorigin="anonymous"></script>
 </body>
 </html>
