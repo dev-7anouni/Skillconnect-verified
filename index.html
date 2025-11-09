@@ -15,15 +15,28 @@
   --brand-600:#00695c;
   --accent:#00bfa5;
   --danger:#d32f2f;
+  --radius:14px;
 }
-*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui;}
-body{background:linear-gradient(180deg,#f5fbfa,#eef7f6);color:#21383a;}
-.container{max-width:960px;margin:40px auto;padding:30px;background:#fff;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,0.1);}
-button{cursor:pointer;border:none;border-radius:10px;padding:10px 14px;font-weight:600}
-.btn{background:var(--brand);color:#fff;}
-.btn.secondary{background:transparent;border:1px solid var(--brand);color:var(--brand);}
-.alert{color:red;margin-top:10px;text-align:center}
-.section{display:none}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+html,body{height:100%;background:linear-gradient(180deg, #f5fbfa 0%, var(--bg) 100%);color:#21383a;}
+.container{max-width:980px;margin:40px auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.98));border-radius:var(--radius);box-shadow:0 10px 30px rgba(12,40,36,0.08);border:1px solid rgba(3,54,48,0.04);}
+header{display:flex;align-items:center;gap:16px;justify-content:center;margin-bottom:18px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo .dot{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+h1{font-size:20px;color:var(--brand);}
+h2{color:var(--brand);text-align:center;margin-bottom:14px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:680px){.form-row{grid-template-columns:1fr}}
+input,select,button{font-size:15px}
+input,select{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(2,40,36,0.06);background:linear-gradient(180deg, #fff, #fbfffe);transition:box-shadow .18s,transform .12s;border-radius:12px}
+input:focus,select:focus{outline:none;box-shadow:0 8px 18px rgba(0,121,107,0.08);transform:translateY(-1px);border-color:var(--brand-600)}
+label{display:block;margin-top:8px;margin-bottom:6px;color:var(--muted);font-weight:600}
+button{padding:12px 14px;border-radius:12px;border:none;cursor:pointer;font-weight:600}
+.btn{background:var(--brand);color:#fff;box-shadow:0 8px 18px rgba(0,121,107,0.12)}
+.btn.secondary{background:transparent;color:var(--brand);border:1px solid rgba(0,121,107,0.12)}
+.alert{color:var(--danger);font-weight:700;text-align:center;margin-top:8px}
+.section{display:none;margin-top:18px}
+footer{text-align:center;margin-top:22px;padding:14px;color:var(--muted);font-size:0.92rem}
 .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);justify-content:center;align-items:center;z-index:1000;}
 .modal-content{background:#fff;padding:30px;border-radius:14px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,0.2);}
 </style>
@@ -31,119 +44,131 @@ button{cursor:pointer;border:none;border-radius:10px;padding:10px 14px;font-weig
 <body>
 
 <div class="container" id="loginDiv">
-  <h2 style="text-align:center;color:var(--brand)">SkillConnect — Verified</h2>
-  <div style="display:grid;gap:10px;max-width:500px;margin:auto">
-    <input id="username" type="text" placeholder="Username">
-    <input id="password" type="password" placeholder="Password">
-    <select id="role">
-      <option value="jobSeeker">Demandeur d’emploi</option>
-      <option value="freelance">Freelance</option>
-    </select>
-    <select id="skill">
-      <option value="web">Web Development</option>
-      <option value="design">Design</option>
-      <option value="marketing">Marketing</option>
-      <option value="data">Data Analysis</option>
-    </select>
-    <div style="display:flex;gap:10px;justify-content:center">
-      <button id="loginBtn" class="btn">Se connecter</button>
-      <button id="registerBtn" class="btn secondary">Register</button>
+    <header>
+      <div class="logo"><div class="dot">SC</div></div>
+      <h1>SkillConnect <span class="small">— Verified</span></h1>
+    </header>
+
+    <div style="max-width:760px;margin:0 auto;">
+      <div class="form-row">
+        <div>
+          <label>Username</label>
+          <input type="text" id="username" placeholder="Username">
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" id="password" placeholder="Password">
+        </div>
+      </div>
+
+      <div class="form-row" style="margin-top:10px">
+        <div>
+          <label>Tu es :</label>
+          <select id="role">
+              <option value="jobSeeker">Demandeur d’emploi</option>
+              <option value="freelance">Freelance</option>
+          </select>
+        </div>
+        <div>
+          <label>Choisis ton skill :</label>
+          <select id="skill">
+              <option value="web">Web Development</option>
+              <option value="design">Design</option>
+              <option value="marketing">Marketing</option>
+              <option value="data">Data Analysis</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:14px;justify-content:center;align-items:center">
+        <button id="loginBtn" class="btn"><i class="fa fa-sign-in-alt icon-left"></i> Se connecter</button>
+        <button id="registerBtn" class="btn secondary"><i class="fa fa-user-plus"></i> Register</button>
+      </div>
+
+      <p id="error" class="alert"></p>
+      <p style="text-align:center;margin-top:10px;color:var(--brand);font-weight:600">website owners : Ahmed Saidi × Rayen Boukari × sajed marwani</p>
     </div>
-    <p id="error" class="alert"></p>
-  </div>
 </div>
 
-<div class="container section" id="dashDiv">
-  <h2>Bienvenue <span id="displayUser"></span> 👋</h2>
-  <p>Rôle: <span id="displayRole"></span></p>
-  <p>Skill: <span id="displaySkill"></span></p>
-  <button id="backBtn" class="btn secondary" style="margin-top:15px">Retour</button>
-</div>
-
-<!-- Fenêtre Register -->
+<!-- Modal Register -->
 <div class="modal" id="registerModal">
   <div class="modal-content" id="registerStep1">
     <button id="contactDevBtn" class="btn" style="font-size:16px;">
-      <i class="fa fa-paper-plane"></i> Contacter le développeur
+      <i class="fa fa-comments"></i> Contacter le développeur
     </button><br>
     <button id="closeModal" class="btn secondary" style="margin-top:10px;">
       <i class="fa fa-times"></i> Fermer
     </button>
   </div>
   <div class="modal-content" id="registerStep2" style="display:none;">
-    <button id="instaBtn" class="btn">
+    <a href="https://www.instagram.com/ahhmed__x" target="_blank" class="btn" style="font-size:16px;">
       <i class="fab fa-instagram"></i> Instagram
-    </button>
-    <p style="margin-top:10px;font-weight:600;">Nom d’utilisateur: <span style="color:#dc2743;">ahhmed__x</span></p>
+    </a><br>
     <button id="closeModal2" class="btn secondary" style="margin-top:10px;">
       <i class="fa fa-times"></i> Fermer
     </button>
   </div>
 </div>
 
+<div class="container section" id="dashDiv">
+  <h2>Bienvenue !</h2>
+  <div class="info-box">Utilisateur: <span id="displayUser"></span></div>
+  <div class="info-box">Rôle: <span id="displayRole"></span></div>
+  <div class="info-box">Skill: <span id="displaySkill"></span></div>
+  <button id="backBtn" class="btn secondary" style="margin-top:15px"><i class="fa fa-arrow-left"></i> Retour</button>
+</div>
+
+<footer>© SkillConnect 2025. All rights reserved.</footer>
+
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", ()=>{
 
-  const loginBtn = document.getElementById("loginBtn");
-  const registerBtn = document.getElementById("registerBtn");
-  const registerModal = document.getElementById("registerModal");
-  const contactDevBtn = document.getElementById("contactDevBtn");
-  const closeModal = document.getElementById("closeModal");
-  const closeModal2 = document.getElementById("closeModal2");
-  const registerStep1 = document.getElementById("registerStep1");
-  const registerStep2 = document.getElementById("registerStep2");
-  const instaBtn = document.getElementById("instaBtn");
+  const loginBtn=document.getElementById("loginBtn");
+  const registerBtn=document.getElementById("registerBtn");
+  const modal=document.getElementById("registerModal");
+  const contactDevBtn=document.getElementById("contactDevBtn");
+  const closeModal=document.getElementById("closeModal");
+  const closeModal2=document.getElementById("closeModal2");
+  const step1=document.getElementById("registerStep1");
+  const step2=document.getElementById("registerStep2");
 
-  // Login
-  loginBtn.addEventListener("click", () => {
-    const user = document.getElementById("username").value.trim();
-    const pass = document.getElementById("password").value.trim();
-    const role = document.getElementById("role").value;
-    const skill = document.getElementById("skill").value;
-    const error = document.getElementById("error");
+  loginBtn.addEventListener("click",()=>{
+    const user=document.getElementById("username").value.trim();
+    const pass=document.getElementById("password").value.trim();
+    const role=document.getElementById("role").value;
+    const skill=document.getElementById("skill").value;
+    const error=document.getElementById("error");
 
-    if(user !== "" && pass !== ""){
-      document.getElementById("displayUser").innerText = user;
-      document.getElementById("displayRole").innerText = role === "freelance" ? "Freelance" : "Demandeur d’emploi";
-      document.getElementById("displaySkill").innerText = skill;
-      document.getElementById("loginDiv").style.display = "none";
-      document.getElementById("dashDiv").style.display = "block";
-      error.innerText = "";
-    } else {
-      error.innerText = "Veuillez remplir tous les champs !";
+    if(user!=="" && pass!==""){
+      document.getElementById("displayUser").innerText=user;
+      document.getElementById("displayRole").innerText=role==='freelance'?'Freelance':'Demandeur d’emploi';
+      document.getElementById("displaySkill").innerText=skill;
+      document.getElementById("loginDiv").style.display="none";
+      document.getElementById("dashDiv").style.display="block";
+      error.innerText="";
+    }else{
+      error.innerText="Veuillez remplir tous les champs !";
     }
   });
 
-  // Retour
-  document.getElementById("backBtn").addEventListener("click", () => {
-    document.getElementById("dashDiv").style.display = "none";
-    document.getElementById("loginDiv").style.display = "block";
+  document.getElementById("backBtn").addEventListener("click",()=>{
+    document.getElementById("dashDiv").style.display="none";
+    document.getElementById("loginDiv").style.display="block";
   });
 
-  // Register modal
-  registerBtn.addEventListener("click", () => {
-    registerModal.style.display = "flex";
-    registerStep1.style.display = "block";
-    registerStep2.style.display = "none";
+  registerBtn.addEventListener("click",()=>{
+    modal.style.display="flex";
+    step1.style.display="block";
+    step2.style.display="none";
   });
 
-  contactDevBtn.addEventListener("click", () => {
-    registerStep1.style.display = "none";
-    registerStep2.style.display = "block";
+  contactDevBtn.addEventListener("click",()=>{
+    step1.style.display="none";
+    step2.style.display="block";
   });
 
-  closeModal.addEventListener("click", () => {
-    registerModal.style.display = "none";
-  });
-
-  closeModal2.addEventListener("click", () => {
-    registerModal.style.display = "none";
-  });
-
-  instaBtn.addEventListener("click", () => {
-    window.open("https://www.instagram.com/ahhmed__x", "_blank");
-  });
-
+  closeModal.addEventListener("click",()=>modal.style.display="none");
+  closeModal2.addEventListener("click",()=>modal.style.display="none");
 });
 </script>
 </body>
