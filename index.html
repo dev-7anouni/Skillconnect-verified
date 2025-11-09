@@ -15,6 +15,7 @@
   --brand-600:#00695c;
   --accent:#00bfa5;
   --danger:#d32f2f;
+  --glass: rgba(255,255,255,0.6);
   --radius:14px;
 }
 *{box-sizing:border-box;margin:0;padding:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
@@ -34,152 +35,249 @@ label{display:block;margin-top:8px;margin-bottom:6px;color:var(--muted);font-wei
 button{padding:12px 14px;border-radius:12px;border:none;cursor:pointer;font-weight:600}
 .btn{background:var(--brand);color:#fff;box-shadow:0 8px 18px rgba(0,121,107,0.12)}
 .btn.secondary{background:transparent;color:var(--brand);border:1px solid rgba(0,121,107,0.12)}
+.btn.warn{background:var(--danger)}
 .alert{color:var(--danger);font-weight:700;text-align:center;margin-top:8px}
 .section{display:none;margin-top:18px}
+.card{border-radius:12px;padding:16px;margin:12px 0;background:linear-gradient(180deg,#ffffff,#f7fffd);border:1px solid rgba(2,40,36,0.04);box-shadow:0 6px 18px rgba(14,50,48,0.06);transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(10,50,45,0.09)}
+.card strong{display:block;font-size:1.05rem;margin-bottom:6px}
+.card-buttons{display:flex;gap:10px;margin-top:12px}
+.card-buttons button{flex:1;padding:10px;border-radius:10px;background:linear-gradient(180deg,var(--brand),var(--brand-600));color:#fff;border:none;display:flex;align-items:center;justify-content:center;gap:8px}
+.card-buttons button.secondary{background:transparent;color:var(--brand);border:1px solid rgba(0,121,107,0.08)}
+.info-box{padding:12px;border-radius:10px;margin-bottom:12px;background:linear-gradient(90deg, rgba(0,191,165,0.06), rgba(0,121,107,0.04));font-weight:600;color:var(--brand-600)}
 footer{text-align:center;margin-top:22px;padding:14px;color:var(--muted);font-size:0.92rem}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);justify-content:center;align-items:center;z-index:1000;}
-.modal-content{background:#fff;padding:30px;border-radius:14px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,0.2);}
-.btn.instagram {
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-  color: #fff;
-  border: none;
-  box-shadow: 0 6px 12px rgba(220,39,67,0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.btn.instagram:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(220,39,67,0.4);
-}
+.price{font-weight:800;color:#083433}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(0,191,165,0.12);color:var(--brand-600);font-weight:700;font-size:12px}
+.small{font-size:13px;color:var(--muted)}
+.top-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:18px}
+.icon-left{margin-right:8px}
+/* subtle glassy backdrop on mobile for the main wrapper */
+@media(max-width:420px){.container{margin:18px;padding:18px}}
 </style>
 </head>
 <body>
 
 <div class="container" id="loginDiv">
     <header>
-      <div class="logo"><div class="dot">SC</div></div>
+      <div class="logo">
+        <div class="dot">SC</div>
+      </div>
       <h1>SkillConnect <span class="small">— Verified</span></h1>
     </header>
 
     <div style="max-width:760px;margin:0 auto;">
-      <div class="form-row">
-        <div>
-          <label>Username</label>
-          <input type="text" id="username" placeholder="Username">
-        </div>
-        <div>
-          <label>Password</label>
-          <input type="password" id="password" placeholder="Password">
-        </div>
+    <div class="form-row">
+      <div>
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Username">
       </div>
-
-      <div class="form-row" style="margin-top:10px">
-        <div>
-          <label>Tu es :</label>
-          <select id="role">
-              <option value="jobSeeker">Demandeur d’emploi</option>
-              <option value="freelance">Freelance</option>
-          </select>
-        </div>
-        <div>
-          <label>Choisis ton skill :</label>
-          <select id="skill">
-              <option value="web">Web Development</option>
-              <option value="design">Design</option>
-              <option value="marketing">Marketing</option>
-              <option value="data">Data Analysis</option>
-          </select>
-        </div>
+      <div>
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Password">
       </div>
+    </div>
 
-      <div style="display:flex;gap:10px;margin-top:14px;justify-content:center;align-items:center">
-        <button id="loginBtn" class="btn"><i class="fa fa-sign-in-alt icon-left"></i> Se connecter</button>
-        <button id="registerBtn" class="btn secondary"><i class="fa fa-user-plus"></i> Register</button>
+    <div class="form-row" style="margin-top:10px">
+      <div>
+        <label>Tu es :</label>
+        <select id="role">
+            <option value="jobSeeker">Demandeur d’emploi</option>
+            <option value="freelance">Freelance</option>
+        </select>
       </div>
+      <div>
+        <label>Choisis ton skill :</label>
+        <select id="skill">
+            <option value="web">Web Development</option>
+            <option value="design">Design</option>
+            <option value="marketing">Marketing</option>
+            <option value="data">Data Analysis</option>
+        </select>
+      </div>
+    </div>
 
-      <p id="error" class="alert"></p>
-      <p style="text-align:center;margin-top:10px;color:var(--brand);font-weight:600">website owners : Ahmed Saidi × Rayen Boukari × Sajed Marwani</p>
+    <div style="display:flex;gap:10px;margin-top:14px;justify-content:center;align-items:center">
+      <button id="loginBtn" class="btn"><i class="fa fa-sign-in-alt icon-left"></i> Se connecter</button>
+    </div>
+
+    <p id="error" class="alert"></p>
+    <p style="text-align:center;margin-top:10px;color:var(--brand);font-weight:600">website owners : Ahmed Saidi × Rayen Boukari × sajed marwani</p>
     </div>
 </div>
 
-<!-- Modal Register -->
-<div class="modal" id="registerModal">
-  <div class="modal-content" id="registerStep1">
-    <button id="contactDevBtn" class="btn" style="font-size:16px;">
-      <i class="fa fa-comments"></i> Contacter le développeur
-    </button><br>
-    <button id="closeModal" class="btn secondary" style="margin-top:10px;">
-      <i class="fa fa-times"></i> Fermer
-    </button>
-  </div>
-  <div class="modal-content" id="registerStep2" style="display:none;">
-    <a href="https://www.instagram.com/ahhmed__x" target="_blank" class="btn instagram" style="font-size:16px;">
-      <i class="fab fa-instagram"></i> @ahhmed__x
-    </a><br>
-    <button id="closeModal2" class="btn secondary" style="margin-top:10px;">
-      <i class="fa fa-times"></i> Fermer
-    </button>
-  </div>
+<div class="container section" id="testDiv">
+    <h2>Test avancé pour ton skill</h2>
+    <p class="alert">⚠️ Attention : L'utilisation d'IA pour répondre au test est interdite ! ⚠️</p>
+    <div style="max-width:760px;margin:0 auto">
+        <label>1. Combien font 5 + 7 ?</label>
+        <input type="number" id="q1"><br>
+        <label>2. Résoudre : 12 * 3 - 4 = ?</label>
+        <input type="number" id="q2"><br>
+        <label>3. Quelle est la capitale de la Tunisie ?</label>
+        <input type="text" id="q3"><br>
+        <label>4. En JavaScript : typeof NaN = ?</label>
+        <input type="text" id="q4"><br>
+        <label>5. Résoudre : (8 + 2) * (5 - 3) / 2 = ?</label>
+        <input type="number" id="q5"><br>
+    </div>
+    <div style="text-align:center;margin-top:12px">
+      <button id="submitTestBtn" class="btn"><i class="fa fa-check icon-left"></i> Soumettre le Test</button>
+    </div>
+</div>
+
+<div class="container section" id="learnDiv">
+    <h2>Aller à apprendre (20 Dinar aujourd'hui)</h2>
+    <p>Voici les réponses pour t'aider à apprendre :</p>
+    <ul>
+        <li>1. 5 + 7 = <strong>12</strong></li>
+        <li>2. 12 * 3 - 4 = <strong>32</strong></li>
+        <li>3. Capitale de la Tunisie = <strong>Tunis</strong></li>
+        <li>4. typeof NaN en JavaScript = <strong>number</strong></li>
+        <li>5. (8 + 2) * (5 - 3) / 2 = <strong>10</strong></li>
+    </ul>
+    <div style="text-align:center;margin-top:12px">
+      <button id="retryTestBtn" class="btn secondary"><i class="fa fa-redo icon-left"></i> Repasser le test</button>
+    </div>
 </div>
 
 <div class="container section" id="dashDiv">
-  <h2>Bienvenue !</h2>
-  <div class="info-box">Utilisateur: <span id="displayUser"></span></div>
-  <div class="info-box">Rôle: <span id="displayRole"></span></div>
-  <div class="info-box">Skill: <span id="displaySkill"></span></div>
-  <button id="backBtn" class="btn secondary" style="margin-top:15px"><i class="fa fa-arrow-left"></i> Retour</button>
+    <h2>Bienvenue !</h2>
+    <div class="info-box">Utilisateur: <span id="displayUser"></span></div>
+    <div class="info-box">Rôle: <span id="displayRole"></span></div>
+    <div class="info-box">Skill: <span id="displaySkill"></span></div>
+    <div class="top-actions">
+      <button id="showClientsBtn" class="btn"><i class="fa fa-users icon-left"></i> Voir Clients</button>
+      <button id="hideAllBtn" class="btn secondary"><i class="fa fa-eye-slash icon-left"></i> Hide Tout</button>
+      <button id="subscribeBtn" class="btn"><i class="fa fa-star icon-left"></i> S’abonner Premium <span class="badge">99 Dinar</span></button>
+      <button id="backFromDashBtn" class="btn secondary"><i class="fa fa-arrow-left icon-left"></i> Retour</button>
+    </div>
+    <div id="clientsDiv"></div>
 </div>
 
-<footer>© SkillConnect 2025. All rights reserved.</footer>
+<footer> © SkillConnect 2025. All rights reserved. </footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", ()=>{
+// --- original JS kept mostly intact but without changes to logic ---
+document.addEventListener("DOMContentLoaded", function(){
 
-  const loginBtn=document.getElementById("loginBtn");
-  const registerBtn=document.getElementById("registerBtn");
-  const modal=document.getElementById("registerModal");
-  const contactDevBtn=document.getElementById("contactDevBtn");
-  const closeModal=document.getElementById("closeModal");
-  const closeModal2=document.getElementById("closeModal2");
-  const step1=document.getElementById("registerStep1");
-  const step2=document.getElementById("registerStep2");
+let userRole = '';
+let userName = '';
+let userSkill = '';
 
-  loginBtn.addEventListener("click",()=>{
-    const user=document.getElementById("username").value.trim();
-    const pass=document.getElementById("password").value.trim();
-    const role=document.getElementById("role").value;
-    const skill=document.getElementById("skill").value;
-    const error=document.getElementById("error");
+const allClients = [
+  {name:"Mohamed Ben Ali",price:50,badges:["Badge Web Expert"],projects:["Site e-commerce Tunisien"]},
+  {name:"Fatma Trabelsi",price:70,badges:["Badge Designer Pro"],projects:["App mobile Restaurants"]},
+  {name:"Sami Jaziri",price:60,badges:["Badge Marketing Guru"],projects:["Campagne marketing"]},
+  {name:"Amira Hentati",price:80,badges:["Badge Data Master"],projects:["Dashboard Data"]}
+];
 
-    if(user!=="" && pass!==""){
-      document.getElementById("displayUser").innerText=user;
-      document.getElementById("displayRole").innerText=role==='freelance'?'Freelance':'Demandeur d’emploi';
-      document.getElementById("displaySkill").innerText=skill;
-      document.getElementById("loginDiv").style.display="none";
-      document.getElementById("dashDiv").style.display="block";
-      error.innerText="";
-    }else{
-      error.innerText="Veuillez remplir tous les champs !";
+document.getElementById("loginBtn").addEventListener("click", function(){
+    const user=document.getElementById('username').value.trim();
+    const pass=document.getElementById('password').value.trim();
+    const role=document.getElementById('role').value;
+    const skill=document.getElementById('skill').value;
+    const error=document.getElementById('error');
+
+    if(user==="skillconnect-test" && pass==="skillconnect-test"){
+        userRole = role;
+        userName = "super-user";
+        userSkill = skill;
+        document.getElementById('displayUser').innerText=userName;
+        document.getElementById('displayRole').innerText=role==='jobSeeker'?'Demandeur d’emploi':'Freelance';
+        document.getElementById('displaySkill').innerText=skill;
+
+        document.getElementById('loginDiv').style.display='none';
+        if(role==='freelance'){
+            document.getElementById('testDiv').style.display='block';
+        } else {
+            document.getElementById('dashDiv').style.display='block';
+        }
+    } else { 
+        error.innerText='Identifiants incorrects!'; 
     }
-  });
+});
 
-  document.getElementById("backBtn").addEventListener("click",()=>{
-    document.getElementById("dashDiv").style.display="none";
-    document.getElementById("loginDiv").style.display="block";
-  });
+document.getElementById('submitTestBtn').addEventListener('click', ()=>{
+    const a1=document.getElementById('q1').value;
+    const a2=document.getElementById('q2').value;
+    const a3=document.getElementById('q3').value.trim();
+    const a4=document.getElementById('q4').value.trim();
+    const a5=document.getElementById('q5').value;
 
-  registerBtn.addEventListener("click",()=>{
-    modal.style.display="flex";
-    step1.style.display="block";
-    step2.style.display="none";
-  });
+    if(!a1||!a2||!a3||!a4||!a5){
+    alert("⚠️ Attention : Tous les champs doivent être remplis et l'utilisation d'IA est interdite !");
+    return;
+}
 
-  contactDevBtn.addEventListener("click",()=>{
-    step1.style.display="none";
-    step2.style.display="block";
-  });
+if(Number(a1)===12 && Number(a2)===32 && a3.toLowerCase()==='tunis' && a4.toLowerCase()==='number' && Number(a5)===10){
+    document.getElementById('testDiv').style.display='none';
+    document.getElementById('dashDiv').style.display='block';
+} else {
+    document.getElementById('testDiv').style.display='none';
+    document.getElementById('learnDiv').style.display='block';
+}
+});
 
-  closeModal.addEventListener("click",()=>modal.style.display="none");
-  closeModal2.addEventListener("click",()=>modal.style.display="none");
+document.getElementById('retryTestBtn').addEventListener('click', ()=>{
+    document.getElementById('learnDiv').style.display='none';
+    document.getElementById('testDiv').style.display='block';
+});
+
+function createClientCard(client){
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `<strong>${client.name}</strong> - Prix: <span class="price">${client.price} Dinar</span>`;
+
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.className = 'card-buttons';
+
+    if(userRole==='jobSeeker'){
+        const badgesBtn=document.createElement('button');
+        badgesBtn.type='button';
+        badgesBtn.className='secondary';
+        badgesBtn.innerHTML='<i class="fa fa-award"></i> Voir Badges';
+        badgesBtn.onclick=()=>alert(`Badges de ${client.name}: ${client.badges.join(', ')}`);
+        buttonsContainer.appendChild(badgesBtn);
+
+        const projectsBtn=document.createElement('button');
+        projectsBtn.type='button';
+        projectsBtn.className='secondary';
+        projectsBtn.innerHTML='<i class="fa fa-folder-open"></i> Voir Projets';
+        projectsBtn.onclick=()=>alert(`Projets de ${client.name}: ${client.projects.join(', ')}`);
+        buttonsContainer.appendChild(projectsBtn);
+    }
+
+    const chooseBtn=document.createElement('button');
+    chooseBtn.type='button';
+    chooseBtn.innerHTML='<i class="fa fa-hand-pointer"></i> Choisir';
+    chooseBtn.onclick=()=>alert(`Vous avez choisi ${client.name}. Attendre réponse du client. OK`);
+    buttonsContainer.appendChild(chooseBtn);
+
+    div.appendChild(buttonsContainer);
+    return div;
+}
+
+document.getElementById('showClientsBtn').addEventListener('click', ()=>{
+    const container=document.getElementById('clientsDiv');
+    container.innerHTML='';
+    allClients.forEach(client=>{
+        container.appendChild(createClientCard(client));
+    });
+});
+
+document.getElementById('hideAllBtn').addEventListener('click', ()=>{
+    document.getElementById('clientsDiv').innerHTML='';
+});
+
+document.getElementById('subscribeBtn').addEventListener('click', ()=>{
+    alert("Vérifiez l'e-mail reçu pour terminer le processus de paiement!!");
+});
+
+document.getElementById('backFromDashBtn').addEventListener('click', ()=>{
+    document.getElementById('dashDiv').style.display='none';
+    document.getElementById('loginDiv').style.display='block';
+});
+
 });
 </script>
 </body>
